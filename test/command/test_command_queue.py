@@ -6,6 +6,7 @@ import time
 
 from src import bot
 from src.command.check_health import CheckHealth
+from src.command.command import Command, Priority
 from src.command.command_queue import CommandQueue, State
 
 
@@ -39,3 +40,31 @@ def test_health_check_passes_when_queue_not_running(monkeypatch) -> None:
     monkeypatch.setattr(bot, "command_queue", queue)
 
     assert bot.check_health() is True
+
+
+class _FailingCommand(Command):
+    """
+    A command that raises when executed.
+    """
+    def __init__(self) -> None:
+        super().__init__("Failing", Priority.NORMAL)
+
+    def execute(self) -> None:
+        raise TimeoutError("simulated network timeout")
+
+
+def test_queue_survives_command_exception() -> None:
+    """
+    A command that raises must not kill the worker; later commands still run.
+    """
+    queue = CommandQueue()
+    health_check = CheckHealth()
+
+    queue.start_in_background()
+    queue.enqueue(_FailingCommand())
+    queue.enqueue(health_check)
+
+    assert health_check.event.wait(1.0)
+    assert queue.state == State.RUNNING
+
+    queue.stop()

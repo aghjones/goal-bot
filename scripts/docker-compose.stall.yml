@@ -1,0 +1,13 @@
+# Override for scripts/test_docker.sh: run the production compose service with
+# a stalled command queue and a fast watchdog, to verify the container restarts.
+services:
+  goal-bot:
+    command: ["python", "./stall_queue.py"]
+    ports: !reset []
+    env_file: !reset []
+    volumes:
+      - ./scripts/stall_queue.py:/bot/stall_queue.py:ro
+    environment:
+      HEALTH_TIMEOUT_SECONDS: "1"
+      HEALTH_WATCHDOG_INTERVAL_SECONDS: "1"
+      HEALTH_WATCHDOG_FAILURES: "2"

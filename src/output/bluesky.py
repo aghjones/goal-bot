@@ -246,22 +246,32 @@ class BlueSky(Outputter):
             return None
 
         access_token = self._session_tokens.get("access", "")
-        response = requests.post(
-                    BASE_URL + "com.atproto.repo.createRecord",
-                    headers={"Authorization": "Bearer " + access_token},
-                    json={
-                        "repo": did,
-                        "collection": "app.bsky.feed.post",
-                        "record": post,
-                    },
-                    timeout=REQUEST_TIMEOUT)
+        try:
+            response = requests.post(
+                        BASE_URL + "com.atproto.repo.createRecord",
+                        headers={"Authorization": "Bearer " + access_token},
+                        json={
+                            "repo": did,
+                            "collection": "app.bsky.feed.post",
+                            "record": post,
+                        },
+                        timeout=REQUEST_TIMEOUT)
+        except requests.exceptions.RequestException as error:
+            log.error("Bluesky - createRecord request failed: " + str(error))
+            return None
 
         if response.ok:
             self.add_post(post["text"])
-            result = {
-                "uri": response.json()["uri"],
-                "cid": response.json()["cid"]
-            }
+            try:
+                payload = response.json()
+                result = {
+                    "uri": payload["uri"],
+                    "cid": payload["cid"]
+                }
+            except (ValueError, KeyError) as error:
+                log.error("Bluesky - createRecord returned an unexpected response: "
+                          + str(error))
+                return None
             log.info("Bluesky - Post created successfully. uri=" + result["uri"])
             return result
 
