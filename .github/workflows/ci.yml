@@ -78,22 +78,21 @@ jobs:
           - name: Perform static analysis on all src files
             run: make analyze
 
+    docker-test:
+        runs-on: ubuntu-latest
+
+        steps:
+          - uses: actions/checkout@v4
+
+          - name: Smoke test the production image
+            run: make docker-test
+
     build:
-        needs: [test, lint, analyze]
+        needs: [test, lint, analyze, docker-test]
         runs-on: ubuntu-latest
         steps:
 
         - uses: actions/checkout@v4
-
-        - name: Create env file
-          run: |
-            mkdir config
-            touch config/.env
-            echo "BEARER_TOKEN=${{ secrets.BEARER_TOKEN }}" >> config/.env
-            echo "CONSUMER_KEY=${{ secrets.CONSUMER_KEY }}" >> config/.env
-            echo "CONSUMER_SECRET=${{ secrets.CONSUMER_SECRET }}" >> config/.env
-            echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> config/.env
-            echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> config/.env
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v3

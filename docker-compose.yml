@@ -1,0 +1,10 @@
+services:
+  goal-bot:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "80:5000"
+    env_file:
+      - .env
+    environment:
+      HEALTH_WATCHDOG_ENABLED: "true"

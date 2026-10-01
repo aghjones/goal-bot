@@ -2,6 +2,8 @@
 This module defines the command queue class.
 """
 
+import traceback
+
 from enum import Enum
 from threading import Condition, Thread
 from typing import Optional, List
@@ -113,7 +115,7 @@ class CommandQueue:
                         self.queue = []
                         self.worker_thread = None
                     break
-                command.execute()
+                self._execute(command)
             except ShutdownException:
                 log.info("Stopping the command server.")
                 with self.condition:
@@ -121,6 +123,22 @@ class CommandQueue:
                     self.queue = []
                     self.worker_thread = None
                     break
+
+
+    def _execute(self, command : Command) -> None:
+        """
+        Execute the given command. Exceptions other than ShutdownException are
+        logged and swallowed so that a single failing command cannot kill the
+        command server and leave every subsequent command (including health
+        checks) unprocessed.
+        """
+        try:
+            command.execute()
+        except ShutdownException:
+            raise
+        except Exception: # pylint: disable=broad-exception-caught
+            log.error("Command '" + command.name + "' raised an exception:\n"
+                      + traceback.format_exc())
 
 
     def wait_for_command(self) -> Optional[Command]:

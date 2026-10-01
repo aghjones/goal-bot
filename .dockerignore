@@ -1,0 +1,19 @@
+# Secrets: supply credentials as Elastic Beanstalk environment properties instead
+config
+.env
+
+# Local and development artifacts
+.git
+.github
+.devcontainer
+.vscode
+.mypy_cache
+.pytest_cache
+**/__pycache__
+.coverage
+results.xml
+bot.log*
+data.json
+*.mp4
+test
+scripts
