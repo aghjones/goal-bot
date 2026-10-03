@@ -10,8 +10,8 @@ def strip_text(text : str) -> str:
     one-liner to represent the post.
     """
     result  : str = ""
-    pattern : str = r"^.*\: \d{1,2}$\n^.*\: \d{1,2}$"
+    pattern : str = r"^[A-Z]{3}: \d{1,2} \| [A-Z]{3}: \d{1,2}$"
     match = re.search(pattern, text, re.MULTILINE)
     if match:
-        result = match.group(0).strip().replace('\n', ' ')
+        result = match.group(0).strip()
     return result

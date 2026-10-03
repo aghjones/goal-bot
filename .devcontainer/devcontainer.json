@@ -7,13 +7,17 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.claude,target=/root/.claude,type=bind"
+    ],
     "forwardPorts": [5000],
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-python.python",
                 "ms-python.pylint",
-                "ms-python.mypy-type-checker"
+                "ms-python.mypy-type-checker",
+                "anthropic.claude-code"
             ]
         }
     }
