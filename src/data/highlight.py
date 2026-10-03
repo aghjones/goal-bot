@@ -66,8 +66,8 @@ class Highlight:
             return None
 
         event_values = {
-            "home_team":  self.game_data.home.location,
-            "away_team":  self.game_data.away.location,
+            "home_team":  self.game_data.home.abbreviation,
+            "away_team":  self.game_data.away.abbreviation,
             "home_goals": self.event.score.home_goals,
             "away_goals": self.event.score.away_goals,
         }
@@ -106,8 +106,8 @@ class Highlight:
             "secondary_assist": self.event.secondary_assist,
             "time":             self.event.time,
             "period":           self.event.period.ordinal,
-            "home_team":        self.game_data.home.location,
-            "away_team":        self.game_data.away.location,
+            "home_team":        self.game_data.home.abbreviation,
+            "away_team":        self.game_data.away.abbreviation,
             "home_goals":       self.event.score.home_goals,
             "away_goals":       self.event.score.away_goals,
             "hashtags":         self.game_data.hashtags
@@ -151,8 +151,8 @@ class Highlight:
             "secondary_assist": self.event.secondary_assist,
             "time":             self.event.time,
             "period":           self.event.period.ordinal,
-            "home_team":        self.game_data.home.location,
-            "away_team":        self.game_data.away.location,
+            "home_team":        self.game_data.home.abbreviation,
+            "away_team":        self.game_data.away.abbreviation,
             "home_goals":       self.event.score.home_goals,
             "away_goals":       self.event.score.away_goals,
             "hashtags":         self.game_data.hashtags

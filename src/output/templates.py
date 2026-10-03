@@ -6,52 +6,41 @@ be replaced by actual values prior to posting.
 GOAL_TEMPLATE = """\
 {team} goal!
 
-Scored by {scorer} with {time} remaining in the {period} period.
-"""
+Scored by {scorer} with {time} left in the {period}."""
 
 POWER_PLAY_GOAL_TEMPLATE = """\
 Power play goal for {team}!
 
-Scored by {scorer} with {time} remaining in the {period} period.
-"""
+Scored by {scorer} with {time} left in the {period}."""
 
 SHORT_HANDED_GOAL_TEMPLATE = """\
 Short-handed goal for {team}!
 
-Scored by {scorer} with {time} remaining in the {period} period.
-"""
+Scored by {scorer} with {time} left in the {period}."""
 
 EMPTY_NET_GOAL_TEMPLATE = """\
 Empty net goal for {team}!
 
-Scored by {scorer} with {time} remaining in the {period} period.
-"""
+Scored by {scorer} with {time} left in the {period}."""
 
 SHOOTOUT_GOAL_TEMPLATE = """\
 {team} goal!
 
-Scored by {scorer} in the shootout.
-"""
+Scored by {scorer} in the shootout."""
 
 SCORE_TEMPLATE = """
-{home_team}: {home_goals}
-{away_team}: {away_goals}
+{home_team}: {home_goals} | {away_team}: {away_goals}
 """
 
 GOAL_FOOTER_TEMPLATE = """
-{home_team}: {home_goals}
-{away_team}: {away_goals}
 
+{home_team}: {home_goals} | {away_team}: {away_goals}
 {hashtags}
 """
 
-ONE_ASSIST_TEMPLATE = """
-Assisted by {primary_assist}.
-"""
+ONE_ASSIST_TEMPLATE = """ Assisted by {primary_assist}."""
 
-TWO_ASSIST_TEMPLATE = """
-Assisted by {primary_assist} and {secondary_assist}.
-"""
+TWO_ASSIST_TEMPLATE = """ Assisted by {primary_assist} and {secondary_assist}."""
 
 SCORER_UPDATE_TEMPLATE = """\
 The goal is now being awarded to {scorer}.
@@ -96,7 +85,7 @@ The assists have been changed on this goal. The secondary assist has been awarde
 """
 
 GOAL_TIME_UPDATE_TEMPLATE = """\
-The time of this goal has been changed. The scoresheet now indicates this goal occurred with {time} remaining in the {period} period.
+The time of this goal has been changed. The scoresheet now indicates this goal occurred with {time} left in the {period}.
 
 {hashtags}
 """

@@ -11,10 +11,10 @@ class TestOutputterDuplicateMatching(unittest.TestCase):
     def test_has_posted_matches_by_scoreline_text(self):
         outputter = Printer()
         outputter.add_post(
-            "Colorado goal!\n\nScored by Someone.\n\nColorado: 4\nMinnesota: 3\n\n#GoAvsGo"
+            "Colorado goal!\n\nScored by Someone.\n\nCOL: 4 | MIN: 3\n\n#GoAvsGo"
         )
 
-        query = "Minnesota goal!\n\nScored by Another Player.\n\nColorado: 4\nMinnesota: 3\n\n#mnwild"
+        query = "Minnesota goal!\n\nScored by Another Player.\n\nCOL: 4 | MIN: 3\n\n#mnwild"
 
         self.assertTrue(outputter.has_posted(query))
 

@@ -14,15 +14,15 @@ class TestUtils(unittest.TestCase):
 
     def test_strip_text_matches_block(self):
         """
-        When the text contains back-to-back score lines, they are returned combined.
+        When the text contains a score line, it is returned.
         """
-        text = "Header\nHome: 3\nAway: 2\nFooter"
+        text = "Header\nCOL: 3 | DET: 2\nFooter"
         result = strip_text(text)
-        self.assertEqual(result, "Home: 3 Away: 2")
+        self.assertEqual(result, "COL: 3 | DET: 2")
 
     def test_strip_text_no_match(self):
         """
-        If no two-line score block exists, empty string is returned.
+        If no score line exists, empty string is returned.
         """
         text = "No scores here"
         result = strip_text(text)
