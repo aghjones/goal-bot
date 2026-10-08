@@ -35,6 +35,7 @@ SCORE_TEMPLATE = """
 GOAL_FOOTER_TEMPLATE = """
 
 {home_team}: {home_goals} | {away_team}: {away_goals}
+
 {hashtags}
 """
 
